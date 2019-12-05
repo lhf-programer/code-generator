@@ -157,6 +157,5 @@ public class CodeWindow extends JFrame {
         } catch (Exception var2) {
             System.out.println(var2.getMessage());
         }
-
     }
 }
