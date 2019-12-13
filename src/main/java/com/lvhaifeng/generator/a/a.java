@@ -7,10 +7,10 @@ public class a {
     private static final ResourceBundle s = ResourceBundle.getBundle("generator/config");
     public static String a = "mysql";
     public static String b = "com.mysql.jdbc.Driver";
-    public static String c = "jdbc:mysql://localhost:3306/spring-cloud?useUnicode=true&characterEncoding=UTF-8";
+    public static String c = "jdbc:mysql://localhost:3306/spring_cloud?useUnicode=true&characterEncoding=UTF-8";
     public static String d = "root";
     public static String e = "root";
-    public static String f = "spring-cloud";
+    public static String f = "spring_cloud";
     public static String g = "c:/workspace/spring-cloud";
     public static String h = "com.lvhaifeng.cloud";
     public static String i = "src";
@@ -67,7 +67,7 @@ public class a {
     }
 
     public static final String h() {
-        return s.getString("webroot_package");
+        return s.getString("resource_package");
     }
 
     public static final String i() {

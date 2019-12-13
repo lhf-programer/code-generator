@@ -23,7 +23,7 @@ public class SimpleFormat {
             } else if (var1.length() == 0) {
                 var1.append(var6.toLowerCase());
             } else {
-                var1.append(var6.substring(0, 1).toUpperCase());
+                var1.append(var6.substring(0, 1));
                 var1.append(var6.substring(1).toLowerCase());
             }
         }

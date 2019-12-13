@@ -8,13 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CodeWindow extends JFrame {
-    private static final long b = -5324160085184088010L;
     private static String c = "test";
     private static String d = "TestEntity";
-    private static String e = "t00_company";
-    private static String f = "分公司";
+    private static String e = "test";
+    private static String f = "test";
     private static Integer g = 1;
     private static String h = "uuid";
     private static String i = "";
@@ -42,13 +43,13 @@ public class CodeWindow extends JFrame {
         JLabel var16 = new JLabel("行字段数目：");
         JTextField var17 = new JTextField();
         var17.setText(g + "");
-        JCheckBox var21 = new JCheckBox("Control");
+        final JCheckBox var21 = new JCheckBox("Control");
         var21.setSelected(true);
-        JCheckBox var23 = new JCheckBox("Service");
+        final JCheckBox var23 = new JCheckBox("Service");
         var23.setSelected(true);
-        JCheckBox var24 = new JCheckBox("Mapper.xml");
+        final JCheckBox var24 = new JCheckBox("Mapper.xml");
         var24.setSelected(true);
-        JCheckBox var25 = new JCheckBox("Dao");
+        final JCheckBox var25 = new JCheckBox("Dao");
         var25.setSelected(true);
         var1.add(var2);
         var1.add(var3);
@@ -103,7 +104,14 @@ public class CodeWindow extends JFrame {
                                         var3x.setFieldRowNum(CodeWindow.g);
                                         var3x.setSequenceCode(CodeWindow.i);
                                         var3x.setFtlDescription(CodeWindow.f);
-                                        (new CodeGenerateOne(var3x)).generateCodeFile();
+
+                                        List<Boolean> isSelects = new ArrayList();
+                                        isSelects.add(var21.isSelected());
+                                        isSelects.add(var23.isSelected());
+                                        isSelects.add(var24.isSelected());
+                                        isSelects.add(var25.isSelected());
+
+                                        (new CodeGenerateOne(var3x)).generateCodeFile(isSelects);
                                         var3.setForeground(Color.red);
                                         var3.setText("成功生成增删改查->功能：" + CodeWindow.f);
                                     } else {

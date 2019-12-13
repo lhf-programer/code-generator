@@ -1,6 +1,5 @@
 package com.lvhaifeng.generator.generate.impl;
 
-
 import com.lvhaifeng.generator.database.DbReadTableUtil;
 import com.lvhaifeng.generator.generate.IGenerate;
 import com.lvhaifeng.generator.generate.pojo.ColumnVo;
@@ -10,10 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CodeGenerateOne extends com.lvhaifeng.generator.generate.impl.a.a implements IGenerate {
     private static final Logger a = LoggerFactory.getLogger(CodeGenerateOne.class);
@@ -81,7 +77,7 @@ public class CodeGenerateOne extends com.lvhaifeng.generator.generate.impl.a.a i
         return var1;
     }
 
-    public void generateCodeFile() throws Exception {
+    public void generateCodeFile(List<Boolean> isSelects) throws Exception {
         a.info("---Code----Generation----[单表模型:" + this.b.getTableName() + "]------- 生成中。。。");
         String var1 = com.lvhaifeng.generator.a.a.g;
         Map var2 = this.a();
@@ -91,20 +87,8 @@ public class CodeGenerateOne extends com.lvhaifeng.generator.generate.impl.a.a i
         }
 
         com.lvhaifeng.generator.generate.a.a var4 = new com.lvhaifeng.generator.generate.a.a(var3);
-        this.a(var4, var1, var2);
+        this.a(var4, var1, var2, isSelects);
         a.info("----Code----Generation-----[单表模型：" + this.b.getTableName() + "]------ 生成完成。。。");
-    }
-
-    public void generateCodeFile(String projectPath, String templatePath) throws Exception {
-        if (projectPath != null && !"".equals(projectPath)) {
-            com.lvhaifeng.generator.a.a.a(projectPath);
-        }
-
-        if (templatePath != null && !"".equals(templatePath)) {
-            com.lvhaifeng.generator.a.a.b(templatePath);
-        }
-
-        this.generateCodeFile();
     }
 
     public static void main(String[] args) {
@@ -117,7 +101,7 @@ public class CodeGenerateOne extends com.lvhaifeng.generator.generate.impl.a.a i
         var1.setFtlDescription("测试demo");
 
         try {
-            (new CodeGenerateOne(var1)).generateCodeFile();
+            (new CodeGenerateOne(var1)).generateCodeFile(new ArrayList<Boolean>(4));
         } catch (Exception var3) {
             var3.printStackTrace();
         }

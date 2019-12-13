@@ -103,11 +103,11 @@ public class DbReadTableUtil {
             b = DriverManager.getConnection(com.lvhaifeng.generator.a.a.c, com.lvhaifeng.generator.a.a.d, com.lvhaifeng.generator.a.a.e);
             c = b.createStatement(1005, 1007);
             if (com.lvhaifeng.generator.a.a.a.equals("mysql")) {
-                var2 = MessageFormat.format("select column_name,data_type,column_comment,numeric_precision,numeric_scale,character_maximum_length,is_nullable nullable from information_schema.columns where table_name = {0} and table_schema = {1}", com.lvhaifeng.generator.generate.util.c.c(var0.toUpperCase()), com.lvhaifeng.generator.generate.util.c.c(com.lvhaifeng.generator.a.a.f));
+                var2 = MessageFormat.format("select column_name,data_type,column_comment,numeric_precision,numeric_scale,character_maximum_length,is_nullable nullable from information_schema.columns where table_name = {0} and table_schema = {1}", com.lvhaifeng.generator.generate.util.c.c(var0), com.lvhaifeng.generator.generate.util.c.c(com.lvhaifeng.generator.a.a.f));
             }
 
             if (com.lvhaifeng.generator.a.a.a.equals("oracle")) {
-                var2 = MessageFormat.format(" select colstable.column_name column_name, colstable.data_type data_type, commentstable.comments column_comment, colstable.Data_Precision column_precision, colstable.Data_Scale column_scale,colstable.Char_Length,colstable.nullable from user_tab_cols colstable  inner join user_col_comments commentstable  on colstable.column_name = commentstable.column_name  where colstable.table_name = commentstable.table_name  and colstable.table_name = {0}", com.lvhaifeng.generator.generate.util.c.c(var0.toUpperCase()));
+                var2 = MessageFormat.format(" select colstable.column_name column_name, colstable.data_type data_type, commentstable.comments column_comment, colstable.Data_Precision column_precision, colstable.Data_Scale column_scale,colstable.Char_Length,colstable.nullable from user_tab_cols colstable  inner join user_col_comments commentstable  on colstable.column_name = commentstable.column_name  where colstable.table_name = commentstable.table_name  and colstable.table_name = {0}", com.lvhaifeng.generator.generate.util.c.c(var0));
             }
 
             if (com.lvhaifeng.generator.a.a.a.equals("postgresql")) {
@@ -132,7 +132,7 @@ public class DbReadTableUtil {
                 var6.setFieldName(var1.getString(1).toLowerCase());
             }
 
-            var6.setFieldDbName(var1.getString(1).toUpperCase());
+            var6.setFieldDbName(var1.getString(1));
             var6.setFieldType(e(var1.getString(2).toLowerCase()));
             var6.setFieldDbType(e(var1.getString(2).toLowerCase()));
             var6.setPrecision(var1.getString(4));
@@ -159,7 +159,7 @@ public class DbReadTableUtil {
                     var8.setFieldName(var1.getString(1).toLowerCase());
                 }
 
-                var8.setFieldDbName(var1.getString(1).toUpperCase());
+                var8.setFieldDbName(var1.getString(1));
                 a.debug("columnt.getFieldName() -------------" + var8.getFieldName());
                 if (!com.lvhaifeng.generator.a.a.m.equals(var8.getFieldName()) && !com.lvhaifeng.generator.database.util.a.a(var8.getFieldDbName().toLowerCase(), var7)) {
                     var8.setFieldType(e(var1.getString(2).toLowerCase()));
@@ -220,11 +220,11 @@ public class DbReadTableUtil {
             b = DriverManager.getConnection(com.lvhaifeng.generator.a.a.c, com.lvhaifeng.generator.a.a.d, com.lvhaifeng.generator.a.a.e);
             c = b.createStatement(1005, 1007);
             if (com.lvhaifeng.generator.a.a.a.equals("mysql")) {
-                var2 = MessageFormat.format("select column_name,data_type,column_comment,numeric_precision,numeric_scale,character_maximum_length,is_nullable nullable from information_schema.columns where table_name = {0} and table_schema = {1}", com.lvhaifeng.generator.generate.util.c.c(var0.toUpperCase()), com.lvhaifeng.generator.generate.util.c.c(com.lvhaifeng.generator.a.a.f));
+                var2 = MessageFormat.format("select column_name,data_type,column_comment,numeric_precision,numeric_scale,character_maximum_length,is_nullable nullable from information_schema.columns where table_name = {0} and table_schema = {1}", com.lvhaifeng.generator.generate.util.c.c(var0), com.lvhaifeng.generator.generate.util.c.c(com.lvhaifeng.generator.a.a.f));
             }
 
             if (com.lvhaifeng.generator.a.a.a.equals("oracle")) {
-                var2 = MessageFormat.format(" select colstable.column_name column_name, colstable.data_type data_type, commentstable.comments column_comment, colstable.Data_Precision column_precision, colstable.Data_Scale column_scale,colstable.Char_Length,colstable.nullable from user_tab_cols colstable  inner join user_col_comments commentstable  on colstable.column_name = commentstable.column_name  where colstable.table_name = commentstable.table_name  and colstable.table_name = {0}", com.lvhaifeng.generator.generate.util.c.c(var0.toUpperCase()));
+                var2 = MessageFormat.format(" select colstable.column_name column_name, colstable.data_type data_type, commentstable.comments column_comment, colstable.Data_Precision column_precision, colstable.Data_Scale column_scale,colstable.Char_Length,colstable.nullable from user_tab_cols colstable  inner join user_col_comments commentstable  on colstable.column_name = commentstable.column_name  where colstable.table_name = commentstable.table_name  and colstable.table_name = {0}", com.lvhaifeng.generator.generate.util.c.c(var0));
             }
 
             if (com.lvhaifeng.generator.a.a.a.equals("postgresql")) {
@@ -249,7 +249,7 @@ public class DbReadTableUtil {
                 var6.setFieldName(var1.getString(1).toLowerCase());
             }
 
-            var6.setFieldDbName(var1.getString(1).toUpperCase());
+            var6.setFieldDbName(var1.getString(1));
             var6.setPrecision(com.lvhaifeng.generator.generate.util.c.b(var1.getString(4)));
             var6.setScale(com.lvhaifeng.generator.generate.util.c.b(var1.getString(5)));
             var6.setCharmaxLength(com.lvhaifeng.generator.generate.util.c.b(var1.getString(6)));
@@ -274,7 +274,7 @@ public class DbReadTableUtil {
                     var7.setFieldName(var1.getString(1).toLowerCase());
                 }
 
-                var7.setFieldDbName(var1.getString(1).toUpperCase());
+                var7.setFieldDbName(var1.getString(1));
                 var7.setPrecision(com.lvhaifeng.generator.generate.util.c.b(var1.getString(4)));
                 var7.setScale(com.lvhaifeng.generator.generate.util.c.b(var1.getString(5)));
                 var7.setCharmaxLength(com.lvhaifeng.generator.generate.util.c.b(var1.getString(6)));
@@ -327,11 +327,11 @@ public class DbReadTableUtil {
             b = DriverManager.getConnection(com.lvhaifeng.generator.a.a.c, com.lvhaifeng.generator.a.a.d, com.lvhaifeng.generator.a.a.e);
             c = b.createStatement(1005, 1007);
             if (com.lvhaifeng.generator.a.a.a.equals("mysql")) {
-                var2 = "select column_name,data_type,column_comment,0,0 from information_schema.columns where table_name = '" + var0.toUpperCase() + "' and table_schema = '" + com.lvhaifeng.generator.a.a.f + "'";
+                var2 = "select column_name,data_type,column_comment,0,0 from information_schema.columns where table_name = '" + var0 + "' and table_schema = '" + com.lvhaifeng.generator.a.a.f + "'";
             }
 
             if (com.lvhaifeng.generator.a.a.a.equals("oracle")) {
-                var2 = "select colstable.column_name column_name, colstable.data_type data_type, commentstable.comments column_comment from user_tab_cols colstable  inner join user_col_comments commentstable  on colstable.column_name = commentstable.column_name  where colstable.table_name = commentstable.table_name  and colstable.table_name = '" + var0.toUpperCase() + "'";
+                var2 = "select colstable.column_name column_name, colstable.data_type data_type, commentstable.comments column_comment from user_tab_cols colstable  inner join user_col_comments commentstable  on colstable.column_name = commentstable.column_name  where colstable.table_name = commentstable.table_name  and colstable.table_name = '" + var0 + "'";
             }
 
             if (com.lvhaifeng.generator.a.a.a.equals("postgresql")) {
@@ -360,7 +360,7 @@ public class DbReadTableUtil {
         for(int var3 = var1.length; var2 < var3; ++var2) {
             if (var2 > 0) {
                 String var4 = var1[var2].toLowerCase();
-                var4 = var4.substring(0, 1).toUpperCase() + var4.substring(1, var4.length());
+                var4 = var4.substring(0, 1) + var4.substring(1, var4.length());
                 var0 = var0 + var4;
             } else {
                 var0 = var0 + var1[var2].toLowerCase();
@@ -378,14 +378,14 @@ public class DbReadTableUtil {
         for(int var3 = var1.length; var2 < var3; ++var2) {
             if (var2 > 0) {
                 String var4 = var1[var2].toLowerCase();
-                var4 = var4.substring(0, 1).toUpperCase() + var4.substring(1, var4.length());
+                var4 = var4.substring(0, 1) + var4.substring(1, var4.length());
                 var0 = var0 + var4;
             } else {
                 var0 = var0 + var1[var2].toLowerCase();
             }
         }
 
-        var0 = var0.substring(0, 1).toUpperCase() + var0.substring(1);
+        var0 = var0.substring(0, 1) + var0.substring(1);
         return var0;
     }
 

@@ -15,29 +15,51 @@ public class a {
     private static final Logger a = LoggerFactory.getLogger(com.lvhaifeng.generator.generate.impl.a.a.class);
     protected static String c = "UTF-8";
 
+    private static final String CONTROLLER = "${entityName}Controller.javai";
+    private static final String ENTITY = "${entityName}.javai";
+    private static final String MAPPERXML = "${entityName}Mapper.xml";
+    private static final String MAPPER = "${entityName}Mapper.javai";
+    private static final String SERVICEIMPL = "${entityName}ServiceImpl.javai";
+    private static final String SERVICE = "I${entityName}Service.javai";
+
     public a() {
     }
 
-    protected void a(com.lvhaifeng.generator.generate.a.a var1, String var2, Map<String, Object> var3) throws Exception {
+    protected void a(com.lvhaifeng.generator.generate.a.a var1, String var2, Map<String, Object> var3, List<Boolean> isSelects) throws Exception {
         a.info("--------generate----projectPath--------" + var2);
 
         for(int var4 = 0; var4 < var1.b().size(); ++var4) {
-            File var5 = (File)var1.b().get(var4);
-            this.a(var2, var5, var3, var1);
+            File var5 = var1.b().get(var4);
+            this.a(var2, var5, var3, var1, isSelects);
         }
 
     }
 
-    protected void a(String var1, File var2, Map<String, Object> var3, com.lvhaifeng.generator.generate.a.a var4) throws Exception {
+    protected void a(String var1, File var2, Map<String, Object> var3, com.lvhaifeng.generator.generate.a.a var4, List<Boolean> isSelects) throws Exception {
         if (var2 == null) {
             throw new IllegalStateException("'templateRootDir' must be not null");
         } else {
-            a.debug("-------------------load template from templateRootDir = '" + var2.getAbsolutePath() + "' outJavaRootDir:" + (new File(com.lvhaifeng.generator.a.a.i.replace(".", File.separator))).getAbsolutePath() + "' outWebappRootDir:" + (new File(com.lvhaifeng.generator.a.a.j.replace(".", File.separator))).getAbsolutePath());
+            a.debug("-------------------load template from templateRootDir = '" + var2.getAbsolutePath() + "' outJavaRootDir:" + (new File(com.lvhaifeng.generator.a.a.i.replace(".", File.separator))).getAbsolutePath() + "' OutResourceRootDir:" + (new File(com.lvhaifeng.generator.a.a.j.replace(".", File.separator))).getAbsolutePath());
             List var5 = com.lvhaifeng.generator.generate.util.a.a(var2);
             a.debug("----srcFiles----size-----------" + var5.size());
             a.debug("----srcFiles----list------------" + var5.toString());
 
             for(int var6 = 0; var6 < var5.size(); ++var6) {
+                String filePath = var5.get(var6).toString();
+                if (filePath.endsWith(CONTROLLER) && !isSelects.get(0)) {
+                    continue;
+                } else if (filePath.endsWith(ENTITY) && !isSelects.get(3)) {
+                    continue;
+                } else if (filePath.endsWith(MAPPERXML) && !isSelects.get(2)) {
+                    continue;
+                } else if (filePath.endsWith(MAPPER) && !isSelects.get(2)) {
+                    continue;
+                } else if (filePath.endsWith(SERVICEIMPL) && !isSelects.get(1)) {
+                    continue;
+                } else if (filePath.endsWith(SERVICE) && !isSelects.get(1)) {
+                    continue;
+                }
+
                 File var7 = (File)var5.get(var6);
                 this.a(var1, var2, var3, var7, var4);
             }
@@ -61,11 +83,11 @@ public class a {
                 var7 = var8 + var7;
                 a.debug("-------java----outputFilepath--" + var7);
                 this.a(var6, var7, var3, var5);
-            } else if (var7.startsWith("webapp")) {
+            } else if (var7.startsWith("resource")) {
                 var8 = var1 + File.separator + com.lvhaifeng.generator.a.a.j.replace(".", File.separator);
-                var7 = var7.substring("webapp".length());
+                var7 = var7.substring("resource".length());
                 var7 = var8 + var7;
-                a.debug("-------webapp---outputFilepath---" + var7);
+                a.debug("-------resource---outputFilepath---" + var7);
                 this.a(var6, var7, var3, var5);
             }
         } catch (Exception var10) {
