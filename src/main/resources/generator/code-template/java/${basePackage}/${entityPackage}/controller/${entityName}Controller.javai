@@ -59,8 +59,8 @@ public class ${entityName}Controller {
 									  @RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
 									  @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,
 									  HttpServletRequest req) {
-		Result<IPage<${entityName}>> result = new Result<IPage<${entityName}>>();
-		QueryWrapper<${entityName}> queryWrapper = new QueryWrapper<${entityName}>();
+		Result<IPage<${entityName}>> result = new Result<>();
+		QueryWrapper<${entityName}> queryWrapper = new QueryWrapper<>();
 		Page<${entityName}> page = new Page<${entityName}>(pageNo, pageSize);
 		IPage<${entityName}> pageList = ${entityName?uncap_first}Service.page(page, queryWrapper);
 		result.setSuccess(true);
@@ -76,7 +76,7 @@ public class ${entityName}Controller {
 	@ApiOperation(value="${tableVo.ftlDescription}-添加", notes="${tableVo.ftlDescription}-添加")
 	@PostMapping(value = "/add")
 	public Result<${entityName}> add(@RequestBody ${entityName} ${entityName?uncap_first}) {
-		Result<${entityName}> result = new Result<${entityName}>();
+		Result<${entityName}> result = new Result<>();
 		try {
 			${entityName?uncap_first}Service.save(${entityName?uncap_first});
 			result.success("添加成功！");
@@ -95,7 +95,7 @@ public class ${entityName}Controller {
 	@ApiOperation(value="${tableVo.ftlDescription}-编辑", notes="${tableVo.ftlDescription}-编辑")
 	@PutMapping(value = "/edit")
 	public Result<${entityName}> edit(@RequestBody ${entityName} ${entityName?uncap_first}) {
-		Result<${entityName}> result = new Result<${entityName}>();
+		Result<${entityName}> result = new Result<>();
 		${entityName} ${entityName?uncap_first}Entity = ${entityName?uncap_first}Service.getById(${entityName?uncap_first}.getId());
 		if(${entityName?uncap_first}Entity==null) {
 			result.error500("未找到对应实体");
@@ -134,7 +134,7 @@ public class ${entityName}Controller {
 	@ApiOperation(value="${tableVo.ftlDescription}-批量删除", notes="${tableVo.ftlDescription}-批量删除")
 	@DeleteMapping(value = "/deleteBatch")
 	public Result<${entityName}> deleteBatch(@RequestParam(name="ids",required=true) String ids) {
-		Result<${entityName}> result = new Result<${entityName}>();
+		Result<${entityName}> result = new Result<>();
 		if(ids==null || "".equals(ids.trim())) {
 			result.error500("参数不识别！");
 		}else {
@@ -152,7 +152,7 @@ public class ${entityName}Controller {
 	@ApiOperation(value="${tableVo.ftlDescription}-通过id查询", notes="${tableVo.ftlDescription}-通过id查询")
 	@GetMapping(value = "/queryById")
 	public Result<${entityName}> queryById(@RequestParam(name="id",required=true) String id) {
-		Result<${entityName}> result = new Result<${entityName}>();
+		Result<${entityName}> result = new Result<>();
 		${entityName} ${entityName?uncap_first} = ${entityName?uncap_first}Service.getById(id);
 		if(${entityName?uncap_first}==null) {
 			result.error500("未找到对应实体");
