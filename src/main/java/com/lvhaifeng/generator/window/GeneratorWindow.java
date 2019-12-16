@@ -86,8 +86,8 @@ public class GeneratorWindow extends JFrame {
             if (verify) {
                 basePackage = basePackageField.getText();
                 entityClass = entityClassField.getText();
-                table = descriptionField.getText();
-                description = tableField.getText();
+                table = tableField.getText();
+                description = descriptionField.getText();
 
                 try {
                     boolean hasTable = DBReadTable.hasTable(table);
