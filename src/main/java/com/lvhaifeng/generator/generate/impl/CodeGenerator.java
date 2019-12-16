@@ -55,12 +55,12 @@ public class CodeGenerator {
 
         try {
             if (this.columns == null || this.columns.size() == 0) {
-                this.columns = DBReadTable.connect(this.tableVo.getTableName());
+                this.columns = DBReadTable.readColumns(this.tableVo.getTableName());
             }
 
             map.put("columns", this.columns);
             if (this.originalColumns == null || this.originalColumns.size() == 0) {
-                this.originalColumns = DBReadTable.readColunms(this.tableVo.getTableName());
+                this.originalColumns = DBReadTable.readOriginalColumns(this.tableVo.getTableName());
             }
 
             map.put("originalColumns", this.originalColumns);

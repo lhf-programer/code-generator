@@ -105,7 +105,7 @@ public class GenerateFile {
 
         try {
             logger.debug("-------templateFile--" + templateFile);
-            String generateFiles = generateFiles(map, templateFile);
+            String generateFiles = this.generateFiles(map, templateFile);
             logger.debug("-------outputFilepath--" + generateFiles);
             String filePath;
             if (generateFiles.startsWith("java")) {

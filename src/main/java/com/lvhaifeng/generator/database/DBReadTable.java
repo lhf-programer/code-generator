@@ -83,7 +83,7 @@ public class DBReadTable {
         return columns;
     }
 
-    public static List<ColumnVo> connect(String str) throws Exception {
+    public static List<ColumnVo> readColumns(String str) throws Exception {
         String sql = null;
         ArrayList columns = new ArrayList();
 
@@ -199,7 +199,7 @@ public class DBReadTable {
         return response;
     }
 
-    public static List<ColumnVo> readColunms(String str) throws Exception {
+    public static List<ColumnVo> readOriginalColumns(String str) throws Exception {
         ResultSet resultSet;
         String sql = "";
         ArrayList columns = new ArrayList();
@@ -275,10 +275,10 @@ public class DBReadTable {
                 column.setFiledComment(StringUtils.isBlank(resultSet.getString(3)) ? column.getFieldName() : resultSet.getString(3));
                 columns.add(column);
             }
-        } catch (ClassNotFoundException resultSet6) {
-            throw resultSet6;
-        } catch (SQLException resultSet7) {
-            throw resultSet7;
+        } catch (ClassNotFoundException ex) {
+            throw ex;
+        } catch (SQLException ex) {
+            throw ex;
         } finally {
             try {
                 if (statement != null) {
@@ -292,8 +292,8 @@ public class DBReadTable {
                     connection = null;
                     System.gc();
                 }
-            } catch (SQLException resultSet5) {
-                throw resultSet5;
+            } catch (SQLException ex) {
+                throw ex;
             }
 
         }
@@ -346,22 +346,22 @@ public class DBReadTable {
         }
     }
 
-    private static String resolverStr(String str) {
-        String[] resultSet = str.split("_");
-        str = "";
+    private static String resolverStr(String field) {
+        String[] split = field.split("_");
+        field = "";
         int index = 0;
 
-        for (int i = resultSet.length; index < i; ++index) {
+        for(int i = split.length; index < i; ++index) {
             if (index > 0) {
-                String result = resultSet[index].toLowerCase();
-                result = result.substring(0, 1) + result.substring(1, result.length());
-                str = str + result;
+                String toLowerCase = split[index].toLowerCase();
+                toLowerCase = toLowerCase.substring(0, 1).toUpperCase() + toLowerCase.substring(1, toLowerCase.length());
+                field = field + toLowerCase;
             } else {
-                str = str + resultSet[index].toLowerCase();
+                field = field + split[index].toLowerCase();
             }
         }
 
-        return str;
+        return field;
     }
 
     private static void resolverType(ColumnVo column) {
