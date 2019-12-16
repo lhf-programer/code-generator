@@ -1,0 +1,18 @@
+package ${basePackage}.${entityPackage}.service.impl;
+
+import ${basePackage}.${entityPackage}.entity.${entityName};
+import ${basePackage}.${entityPackage}.mapper.${entityName}Mapper;
+import ${basePackage}.${entityPackage}.service.I${entityName}Service;
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+/**
+ * @Description: ${tableVo.ftlDescription}
+ * @Author: haifeng.lv
+ * @Date:   ${.now?string["yyyy-MM-dd"]}
+ */
+@Service
+public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, ${entityName}> implements I${entityName}Service {
+
+}
