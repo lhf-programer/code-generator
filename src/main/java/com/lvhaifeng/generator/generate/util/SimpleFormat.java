@@ -10,64 +10,23 @@ public class SimpleFormat {
     public SimpleFormat() {
     }
 
-    public static String underlineToHump(String para) {
-        StringBuilder var1 = new StringBuilder();
-        String[] var2 = para.split("_");
-        String[] var3 = var2;
-        int var4 = var2.length;
-
-        for(int var5 = 0; var5 < var4; ++var5) {
-            String var6 = var3[var5];
-            if (!para.contains("_")) {
-                var1.append(var6);
-            } else if (var1.length() == 0) {
-                var1.append(var6.toLowerCase());
-            } else {
-                var1.append(var6.substring(0, 1));
-                var1.append(var6.substring(1).toLowerCase());
-            }
-        }
-
-        return var1.toString();
-    }
-
-    public static String humpToUnderline(String para) {
-        StringBuilder var1 = new StringBuilder(para);
-        int var2 = 0;
-        if (!para.contains("_")) {
-            for(int var3 = 0; var3 < para.length(); ++var3) {
-                if (Character.isUpperCase(para.charAt(var3))) {
-                    var1.insert(var3 + var2, "_");
-                    ++var2;
-                }
-            }
-        }
-
-        if (var1.toString().toLowerCase().startsWith("_")) {
-            return var1.toString().toLowerCase().substring(1);
-        } else {
-            System.out.println(var1.toString().toLowerCase());
-            return var1.toString().toLowerCase();
-        }
-    }
-
     public static String humpToShortbar(String para) {
-        StringBuilder var1 = new StringBuilder(para);
-        int var2 = 0;
+        StringBuilder stringBuilder = new StringBuilder(para);
+        int index = 0;
         if (!para.contains("-")) {
-            for(int var3 = 0; var3 < para.length(); ++var3) {
-                if (Character.isUpperCase(para.charAt(var3))) {
-                    var1.insert(var3 + var2, "-");
-                    ++var2;
+            for(int i = 0; i < para.length(); ++i) {
+                if (Character.isUpperCase(para.charAt(i))) {
+                    stringBuilder.insert(i + index, "-");
+                    ++index;
                 }
             }
         }
 
-        if (var1.toString().toLowerCase().startsWith("-")) {
-            return var1.toString().toLowerCase().substring(1);
+        if (stringBuilder.toString().toLowerCase().startsWith("-")) {
+            return stringBuilder.toString().toLowerCase().substring(1);
         } else {
-            System.out.println(var1.toString().toLowerCase());
-            return var1.toString().toLowerCase();
+            System.out.println(stringBuilder.toString().toLowerCase());
+            return stringBuilder.toString().toLowerCase();
         }
     }
 
@@ -99,18 +58,18 @@ public class SimpleFormat {
         if (obj == null) {
             return "";
         } else {
-            SimpleDateFormat var3 = new SimpleDateFormat("dd-MM月 -yy");
-            SimpleDateFormat var4 = new SimpleDateFormat(pattern);
-            Date var5 = null;
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd-MM月 -yy");
+            SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(pattern);
+            Date date = null;
 
             try {
-                var5 = var3.parse(obj.toString());
-            } catch (ParseException var7) {
-                var7.printStackTrace();
+                date = simpleDateFormat1.parse(obj.toString());
+            } catch (ParseException ex) {
+                ex.printStackTrace();
                 return "error";
             }
 
-            return var4.format(var5);
+            return simpleDateFormat2.format(date);
         }
     }
 
@@ -135,21 +94,4 @@ public class SimpleFormat {
         return obj == null ? "" : DateFormat.getDateTimeInstance(1, 3, Locale.CHINA).format(obj);
     }
 
-    public String getInStrs(List<String> params) {
-        StringBuffer var2 = new StringBuffer();
-        Iterator var3 = params.iterator();
-
-        while(var3.hasNext()) {
-            String var4 = (String)var3.next();
-            var2.append("'" + var4 + "',");
-        }
-
-        String var5 = var2.toString();
-        if ("".equals(var5) && !var5.endsWith(",")) {
-            return null;
-        } else {
-            var5 = var5.substring(0, var5.length() - 1);
-            return var5;
-        }
-    }
 }

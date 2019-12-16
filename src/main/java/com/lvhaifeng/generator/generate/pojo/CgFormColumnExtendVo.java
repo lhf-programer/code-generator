@@ -131,6 +131,7 @@ public class CgFormColumnExtendVo {
         this.fieldOrderNum = fieldOrderNum;
     }
 
+    @Override
     public String toString() {
         return "{}";
     }

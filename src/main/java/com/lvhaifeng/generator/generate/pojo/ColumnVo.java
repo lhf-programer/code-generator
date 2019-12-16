@@ -115,6 +115,7 @@ public class ColumnVo extends CgFormColumnExtendVo {
         this.fieldDbName = fieldDbName;
     }
 
+    @Override
     public String toString() {
         return "{\"fieldDbName\":\"" + this.fieldDbName + "\",\"fieldName\":\"" + this.fieldName + "\",\"filedComment\":\"" + this.filedComment + "\",\"fieldType\":\"" + this.fieldType + "\",\"fieldDbType\":\"" + this.fieldDbType + "\",\"classType\":\"" + this.classType + "\",\"classType_row\":\"" + this.classType_row + "\",\"optionType\":\"" + this.optionType + "\",\"charmaxLength\":\"" + this.charmaxLength + "\",\"precision\":\"" + this.precision + "\",\"scale\":\"" + this.scale + "\",\"nullable\":\"" + this.nullable + "\",\"fieldLength\":\"" + this.fieldLength + "\",\"fieldHref\":\"" + this.fieldHref + "\",\"fieldValidType\":\"" + this.fieldValidType + "\",\"fieldDefault\":\"" + this.fieldDefault + "\",\"fieldShowType\":\"" + this.fieldShowType + "\",\"fieldOrderNum\":\"" + this.fieldOrderNum + "\",\"isKey\":\"" + this.isKey + "\",\"isShow\":\"" + this.isShow + "\",\"isShowList\":\"" + this.isShowList + "\",\"isQuery\":\"" + this.isQuery + "\",\"queryMode\":\"" + this.queryMode + "\",\"dictField\":\"" + this.dictField + "\",\"dictTable\":\"" + this.dictTable + "\",\"dictText\":\"" + this.dictText + "\"}";
     }

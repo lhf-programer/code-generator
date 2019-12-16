@@ -10,7 +10,7 @@
 public static void main(String[] args) {
     try {
         (new CodeWindow()).pack();
-    } catch (Exception var2) {
-        System.out.println(var2.getMessage());
+    } catch (Exception ex) {
+        System.out.println(ex.getMessage());
     }
 }

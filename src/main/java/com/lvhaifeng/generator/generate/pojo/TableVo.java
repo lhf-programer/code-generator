@@ -97,6 +97,7 @@ public class TableVo {
         this.extendParams = extendParams;
     }
 
+    @Override
     public String toString() {
         return "{\"tableName\":\"" + this.tableName + "\",\"ftlDescription\":\"" + this.ftlDescription + "\",\"primaryKeyPolicy\":\"" + this.primaryKeyPolicy + "\",\"sequenceCode\":\"" + this.sequenceCode + "\",\"entityPackage\":\"" + this.entityPackage + "\",\"entityName\":\"" + this.entityName + "\",\"fieldRowNum\":\"" + this.fieldRowNum + "\",\"searchFieldNum\":\"" + this.searchFieldNum + "\",\"fieldRequiredNum\":\"" + this.fieldRequiredNum + "\"}";
     }
