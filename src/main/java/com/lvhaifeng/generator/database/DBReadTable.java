@@ -413,9 +413,13 @@ public class DBReadTable {
         } else if (str.contains("decimal")) {
             str = "java.math.BigDecimal";
         } else if (str.contains("date")) {
-            str = "java.util.Date";
+            if (str.contains("datetime")) {
+                str = "java.time.LocalDateTime";
+            } else {
+                str = "java.time.LocalDate";
+            }
         } else if (str.contains("time")) {
-            str = "java.util.Date";
+            str = "java.time.LocalTime";
         } else if (str.contains("blob")) {
             str = "byte[]";
         } else if (str.contains("clob")) {

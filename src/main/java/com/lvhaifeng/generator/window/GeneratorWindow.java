@@ -55,6 +55,10 @@ public class GeneratorWindow extends JFrame {
         mapper.setSelected(true);
         final JCheckBox entity = new JCheckBox("entity");
         entity.setSelected(true);
+        final JCheckBox isCheckClient = new JCheckBox("检查客户端");
+        isCheckClient.setSelected(true);
+        final JCheckBox isCheckUser = new JCheckBox("检查用户端");
+        isCheckUser.setSelected(true);
 
         jPanel.add(remind);
         jPanel.add(title);
@@ -70,6 +74,8 @@ public class GeneratorWindow extends JFrame {
         jPanel.add(service);
         jPanel.add(mapper);
         jPanel.add(entity);
+        jPanel.add(isCheckClient);
+        jPanel.add(isCheckUser);
 
         JButton generate = new JButton("生成");
 
@@ -98,6 +104,8 @@ public class GeneratorWindow extends JFrame {
                         tableVo.setEntityName(entityClass);
                         tableVo.setFieldRowNum(1);
                         tableVo.setFtlDescription(description);
+                        tableVo.setIsCheckClient(isCheckClient.isSelected()?1:0);
+                        tableVo.setIsCheckUser(isCheckUser.isSelected()?1:0);
 
                         List<Boolean> isSelects = new ArrayList();
                         isSelects.add(controller.isSelected());

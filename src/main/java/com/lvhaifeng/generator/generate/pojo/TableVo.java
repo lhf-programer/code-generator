@@ -13,6 +13,30 @@ public class TableVo {
     private Integer searchFieldNum;
     private Integer fieldRequiredNum;
     private Map<?, ?> extendParams;
+    /**
+     * 是否检查客户端
+     */
+    private Integer isCheckClient;
+    /**
+     * 是否检查用户端
+     */
+    private Integer isCheckUser;
+
+    public Integer getIsCheckClient() {
+        return isCheckClient;
+    }
+
+    public void setIsCheckClient(Integer isCheckClient) {
+        this.isCheckClient = isCheckClient;
+    }
+
+    public Integer getIsCheckUser() {
+        return isCheckUser;
+    }
+
+    public void setIsCheckUser(Integer isCheckUser) {
+        this.isCheckUser = isCheckUser;
+    }
 
     public TableVo() {
     }
