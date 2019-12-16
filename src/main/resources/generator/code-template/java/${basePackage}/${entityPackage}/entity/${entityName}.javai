@@ -27,11 +27,11 @@ public class ${entityName} {
 	<#if po.fieldName == primaryKeyField>
 	@TableId(type = IdType.UUID)
 	<#else>
-  <#if po.fieldType =='java.util.LocalDate'>
+  <#if po.fieldType =='java.time.LocalDate'>
     @DateTimeFormat(pattern="yyyy-MM-dd")
-  <#elseif po.fieldType =='java.util.LocalTime'>
+  <#elseif po.fieldType =='java.time.LocalTime'>
     @DateTimeFormat(pattern="HH:mm:ss")
-  <#elseif po.fieldType =='java.util.LocalDateTime'>
+  <#elseif po.fieldType =='java.time.LocalDateTime'>
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
   <#else>
   </#if>
