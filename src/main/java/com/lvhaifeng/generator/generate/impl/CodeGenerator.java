@@ -1,7 +1,7 @@
 package com.lvhaifeng.generator.generate.impl;
 
-import com.lvhaifeng.generator.common.DBConstant;
-import com.lvhaifeng.generator.database.DBReadTableUtil;
+import com.lvhaifeng.generator.database.DBConstant;
+import com.lvhaifeng.generator.database.DBReadTable;
 import com.lvhaifeng.generator.generate.pojo.ColumnVo;
 import com.lvhaifeng.generator.generate.pojo.TableVo;
 import com.lvhaifeng.generator.generate.util.NonceUtils;
@@ -55,12 +55,12 @@ public class CodeGenerator {
 
         try {
             if (this.columns == null || this.columns.size() == 0) {
-                this.columns = DBReadTableUtil.connect(this.tableVo.getTableName());
+                this.columns = DBReadTable.connect(this.tableVo.getTableName());
             }
 
             map.put("columns", this.columns);
             if (this.originalColumns == null || this.originalColumns.size() == 0) {
-                this.originalColumns = DBReadTableUtil.readColunms(this.tableVo.getTableName());
+                this.originalColumns = DBReadTable.readColunms(this.tableVo.getTableName());
             }
 
             map.put("originalColumns", this.originalColumns);

@@ -1,4 +1,4 @@
-package com.lvhaifeng.generator.database.util;
+package com.lvhaifeng.generator.generate.util;
 
 import org.apache.commons.lang3.StringUtils;
 

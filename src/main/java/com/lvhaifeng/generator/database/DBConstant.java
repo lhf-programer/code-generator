@@ -1,4 +1,4 @@
-package com.lvhaifeng.generator.common;
+package com.lvhaifeng.generator.database;
 
 import java.util.ResourceBundle;
 

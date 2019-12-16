@@ -1,6 +1,6 @@
 package com.lvhaifeng.generator.window;
 
-import com.lvhaifeng.generator.database.DBReadTableUtil;
+import com.lvhaifeng.generator.database.DBReadTable;
 import com.lvhaifeng.generator.generate.impl.CodeGenerator;
 import com.lvhaifeng.generator.generate.pojo.TableVo;
 
@@ -90,7 +90,7 @@ public class GeneratorWindow extends JFrame {
                 description = tableField.getText();
 
                 try {
-                    boolean hasTable = DBReadTableUtil.hasTable(table);
+                    boolean hasTable = DBReadTable.hasTable(table);
                     if (hasTable) {
                         TableVo tableVo = new TableVo();
                         tableVo.setTableName(table);

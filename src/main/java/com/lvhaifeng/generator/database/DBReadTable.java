@@ -1,8 +1,7 @@
 package com.lvhaifeng.generator.database;
 
-import com.lvhaifeng.generator.common.DBConstant;
-import com.lvhaifeng.generator.database.util.FiledUtils;
 import com.lvhaifeng.generator.generate.pojo.ColumnVo;
+import com.lvhaifeng.generator.generate.util.FiledUtils;
 import com.lvhaifeng.generator.generate.util.PrecisionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,12 +17,12 @@ import java.util.List;
  * @author haifeng.lv
  * @updateTime 2019/12/13 17:00
  */
-public class DBReadTableUtil {
-    private static final Logger logger = LoggerFactory.getLogger(DBReadTableUtil.class);
+public class DBReadTable {
+    private static final Logger logger = LoggerFactory.getLogger(DBReadTable.class);
     private static Connection connection;
     private static Statement statement;
 
-    public DBReadTableUtil() {
+    public DBReadTable() {
     }
 
     /**
@@ -62,8 +61,8 @@ public class DBReadTableUtil {
                 String str = result.getString(1);
                 columns.add(str);
             }
-        } catch (Exception resultSet2) {
-            resultSet2.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             try {
                 if (statement != null) {
@@ -118,14 +117,14 @@ public class DBReadTableUtil {
 
             columnVo = new ColumnVo();
             if (DBConstant.dbFiledConvert) {
-                columnVo.setFieldName(relsoverStr(resultSet.getString(1).toLowerCase()));
+                columnVo.setFieldName(resolverStr(resultSet.getString(1).toLowerCase()));
             } else {
                 columnVo.setFieldName(resultSet.getString(1).toLowerCase());
             }
 
             columnVo.setFieldDbName(resultSet.getString(1));
-            columnVo.setFieldType(relsoverStr(resultSet.getString(2).toLowerCase()));
-            columnVo.setFieldDbType(relsoverStr(resultSet.getString(2).toLowerCase()));
+            columnVo.setFieldType(resolverStr(resultSet.getString(2).toLowerCase()));
+            columnVo.setFieldDbType(resolverStr(resultSet.getString(2).toLowerCase()));
             columnVo.setPrecision(resultSet.getString(4));
             columnVo.setScale(resultSet.getString(5));
             columnVo.setCharmaxLength(resultSet.getString(6));
@@ -145,7 +144,7 @@ public class DBReadTableUtil {
             while (resultSet.previous()) {
                 ColumnVo column = new ColumnVo();
                 if (DBConstant.dbFiledConvert) {
-                    column.setFieldName(relsoverStr(resultSet.getString(1).toLowerCase()));
+                    column.setFieldName(resolverStr(resultSet.getString(1).toLowerCase()));
                 } else {
                     column.setFieldName(resultSet.getString(1).toLowerCase());
                 }
@@ -153,8 +152,8 @@ public class DBReadTableUtil {
                 column.setFieldDbName(resultSet.getString(1));
                 logger.debug("columnt.getFieldName() -------------" + column.getFieldName());
                 if (!DBConstant.dbTableId.equals(column.getFieldName()) && !FiledUtils.equal(column.getFieldDbName().toLowerCase(), baseFiled)) {
-                    column.setFieldType(relsoverStr(resultSet.getString(2).toLowerCase()));
-                    column.setFieldDbType(relsoverStr(resultSet.getString(2).toLowerCase()));
+                    column.setFieldType(resolverStr(resultSet.getString(2).toLowerCase()));
+                    column.setFieldDbType(resolverStr(resultSet.getString(2).toLowerCase()));
                     logger.debug("-----po.setFieldType------------" + column.getFieldType());
                     column.setPrecision(resultSet.getString(4));
                     column.setScale(resultSet.getString(5));
@@ -235,7 +234,7 @@ public class DBReadTableUtil {
 
             columnVo = new ColumnVo();
             if (DBConstant.dbFiledConvert) {
-                columnVo.setFieldName(relsoverStr(resultSet.getString(1).toLowerCase()));
+                columnVo.setFieldName(resolverStr(resultSet.getString(1).toLowerCase()));
             } else {
                 columnVo.setFieldName(resultSet.getString(1).toLowerCase());
             }
@@ -246,7 +245,7 @@ public class DBReadTableUtil {
             columnVo.setCharmaxLength(PrecisionUtils.isBlank(resultSet.getString(6)));
             columnVo.setNullable(PrecisionUtils.equal(resultSet.getString(7)));
             columnVo.setFieldType(resolverType(resultSet.getString(2).toLowerCase(), columnVo.getPrecision(), columnVo.getScale()));
-            columnVo.setFieldDbType(relsoverStr(resultSet.getString(2).toLowerCase()));
+            columnVo.setFieldDbType(resolverStr(resultSet.getString(2).toLowerCase()));
             resolverType(columnVo);
             columnVo.setFiledComment(StringUtils.isBlank(resultSet.getString(3)) ? columnVo.getFieldName() : resultSet.getString(3));
             logger.debug("columnt.getFieldName() -------------" + columnVo.getFieldName());
@@ -260,7 +259,7 @@ public class DBReadTableUtil {
 
                 ColumnVo column = new ColumnVo();
                 if (DBConstant.dbFiledConvert) {
-                    column.setFieldName(relsoverStr(resultSet.getString(1).toLowerCase()));
+                    column.setFieldName(resolverStr(resultSet.getString(1).toLowerCase()));
                 } else {
                     column.setFieldName(resultSet.getString(1).toLowerCase());
                 }
@@ -271,7 +270,7 @@ public class DBReadTableUtil {
                 column.setCharmaxLength(PrecisionUtils.isBlank(resultSet.getString(6)));
                 column.setNullable(PrecisionUtils.equal(resultSet.getString(7)));
                 column.setFieldType(resolverType(resultSet.getString(2).toLowerCase(), column.getPrecision(), column.getScale()));
-                column.setFieldDbType(relsoverStr(resultSet.getString(2).toLowerCase()));
+                column.setFieldDbType(resolverStr(resultSet.getString(2).toLowerCase()));
                 resolverType(column);
                 column.setFiledComment(StringUtils.isBlank(resultSet.getString(3)) ? column.getFieldName() : resultSet.getString(3));
                 columns.add(column);
@@ -347,7 +346,7 @@ public class DBReadTableUtil {
         }
     }
 
-    private static String relsoverStr(String str) {
+    private static String resolverStr(String str) {
         String[] resultSet = str.split("_");
         str = "";
         int index = 0;

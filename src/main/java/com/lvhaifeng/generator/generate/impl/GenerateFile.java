@@ -1,6 +1,6 @@
 package com.lvhaifeng.generator.generate.impl;
 
-import com.lvhaifeng.generator.common.DBConstant;
+import com.lvhaifeng.generator.database.DBConstant;
 import com.lvhaifeng.generator.generate.util.FileUtils;
 import com.lvhaifeng.generator.generate.util.TemplateUtils;
 import freemarker.template.Configuration;
