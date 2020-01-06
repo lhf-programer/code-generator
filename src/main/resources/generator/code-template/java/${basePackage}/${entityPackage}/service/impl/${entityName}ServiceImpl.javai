@@ -35,9 +35,10 @@ public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, $
         if(${entityName?uncap_first}Entity == null) {
             throw new BusinessException(ErrCodeBaseConstant.COMMON_PARAM_ERR);
         } else {
-            EntityUtils.setDefaultValue(${entityName?uncap_first});
-            return super.updateById(${entityName?uncap_first});
+            BeanUtils.copyProperties(${entityName?uncap_first}, ${entityName?uncap_first}Entity);
         }
+        EntityUtils.setDefaultValue(${entityName?uncap_first}Entity);
+        return super.updateById(${entityName?uncap_first}Entity);
     }
 
     @Override
