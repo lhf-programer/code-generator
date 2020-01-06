@@ -395,9 +395,9 @@ public class DBReadTable {
 
     private static String resolverType(String str, String resultSet, String value) {
         if (str.contains("char")) {
-            str = "java.lang.String";
+            str = "String";
         } else if (str.contains("int")) {
-            str = "java.lang.Integer";
+            str = "Integer";
         } else if (str.contains("float")) {
             str = "java.lang.Float";
         } else if (str.contains("double")) {
@@ -427,7 +427,7 @@ public class DBReadTable {
         } else if (str.contains("numeric")) {
             str = "java.math.BigDecimal";
         } else {
-            str = "java.lang.Object";
+            str = "Object";
         }
 
         return str;

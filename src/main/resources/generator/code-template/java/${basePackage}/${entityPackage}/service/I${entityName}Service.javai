@@ -3,6 +3,9 @@ package ${basePackage}.${entityPackage}.service;
 import ${basePackage}.${entityPackage}.entity.${entityName};
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.io.Serializable;
+import java.util.Collection;
+
 /**
  * @Description: ${tableVo.ftlDescription}
  * @Author: haifeng.lv
