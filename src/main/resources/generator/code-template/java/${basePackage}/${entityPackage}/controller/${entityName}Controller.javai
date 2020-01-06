@@ -61,7 +61,7 @@ public class ${entityName}Controller {
 									  HttpServletRequest req) {
 		Result<IPage<${entityName}>> result = new Result<>();
 		QueryWrapper<${entityName}> queryWrapper = new QueryWrapper<>();
-		Page<${entityName}> page = new Page<${entityName}>(pageNo, pageSize);
+		Page<${entityName}> page = new Page<>(pageNo, pageSize);
 		IPage<${entityName}> pageList = ${entityName?uncap_first}Service.page(page, queryWrapper);
 		result.setSuccess(true);
 		result.setResult(pageList);
