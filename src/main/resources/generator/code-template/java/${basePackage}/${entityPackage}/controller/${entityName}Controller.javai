@@ -131,7 +131,7 @@ public class ${entityName}Controller {
 	 */
 	@ApiOperation(value="${tableVo.ftlDescription}-批量删除", notes="${tableVo.ftlDescription}-批量删除")
 	@DeleteMapping(value = "/deleteBatch")
-	public Result<${entityName}> deleteBatch(@RequestParam(name="ids",required=true) List<String> ids) {
+	public Result<?> deleteBatch(@RequestParam(name="ids",required=true) List<String> ids) {
         try {
             ${entityName?uncap_first}Service.removeByIds(ids);
         } catch (Exception e) {
