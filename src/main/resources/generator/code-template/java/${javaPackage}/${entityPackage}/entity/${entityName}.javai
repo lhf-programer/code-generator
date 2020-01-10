@@ -1,0 +1,42 @@
+package ${javaPackage}.${entityPackage}.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
+
+/**
+ * @Description: ${tableVo.ftlDescription}
+ * @Author: haifeng.lv
+ * @Date: ${.now?string["yyyy-MM-dd HH:mm"]}
+ */
+@Data
+@TableName("${tableName}")
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@ApiModel(value="${tableName}对象", description="${tableVo.ftlDescription}")
+public class ${entityName} {
+    
+    <#list originalColumns as po>
+	/**${po.filedComment}*/
+	<#if po.fieldName == primaryKeyField>
+	@TableId(type = IdType.UUID)
+	<#else>
+  <#if po.fieldType =='java.time.LocalDate'>
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+  <#elseif po.fieldType =='java.time.LocalTime'>
+    @DateTimeFormat(pattern="HH:mm:ss")
+  <#elseif po.fieldType =='java.time.LocalDateTime'>
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+  <#else>
+  </#if>
+  </#if>
+    @ApiModelProperty(value = "${po.filedComment}")
+	private <#if po.fieldType=='java.sql.Blob'>byte[]<#else>${po.fieldType}</#if> ${po.fieldName};
+	</#list>
+}
