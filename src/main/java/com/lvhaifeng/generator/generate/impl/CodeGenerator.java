@@ -34,9 +34,13 @@ public class CodeGenerator {
      */
     public Map<String, Object> loadFiled() throws Exception {
         HashMap map = new HashMap();
-        map.put("basePackage", DBConstant.basePackage);
+        String entityName = this.tableVo.getEntityName();
+        String vuePackage = entityName.substring(0, 1).toLowerCase() + entityName.substring(1);
+
+        map.put("javaPackage", DBConstant.javaPackage);
         map.put("entityPackage", this.tableVo.getEntityPackage());
-        map.put("entityName", this.tableVo.getEntityName());
+        map.put("entityName", entityName);
+        map.put("vuePackage", vuePackage);
         map.put("tableName", this.tableVo.getTableName());
         map.put("primaryKeyField", DBConstant.dbTableId);
         if (this.tableVo.getFieldRequiredNum() == null) {
@@ -85,13 +89,14 @@ public class CodeGenerator {
     public void generateCodeFile(List<Boolean> isSelects) throws Exception {
         logger.info("---Code----Generation----[单表模型:" + this.tableVo.getTableName() + "]------- 生成中。。。");
         // 项目生成路径
-        String path = DBConstant.projectPath;
+        String javaPath = DBConstant.javaPath;
+        String vuePath = DBConstant.vuePath;
         Map map = this.loadFiled();
         // 模板路径
         String templatePath = DBConstant.templatePath;
 
         GenerateFile generateFile = new GenerateFile(templatePath);
-        generateFile.generateFiles(path, map, isSelects);
+        generateFile.generateFiles(javaPath, vuePath, map, isSelects);
         logger.info("----Code----Generation-----[单表模型：" + this.tableVo.getTableName() + "]------ 生成完成。。。");
     }
 

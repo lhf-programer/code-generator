@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description 读取表工具类
@@ -23,6 +25,65 @@ public class DBReadTable {
     private static Statement statement;
 
     public DBReadTable() {
+    }
+
+    /**
+     * @Description 查询所有表
+     * @Author haifeng.lv
+     * @Date 2020/1/10 9:55
+     * @return: java.util.List<java.lang.String>
+     */
+    public static Map<String, String> readTableNameList() {
+        String resultSet = null;
+        Map<String, String> tables = new HashMap<>(0);
+
+        try {
+            Class.forName(DBConstant.diverName);
+            connection = DriverManager.getConnection(DBConstant.url, DBConstant.username, DBConstant.password);
+            statement = connection.createStatement(1005, 1007);
+            if (DBConstant.dbType.equals("mysql")) {
+                resultSet = MessageFormat.format("select table_name tableName, table_comment tableComment, engine, create_time createTime from information_schema.tables where table_schema = {0} order by create_time desc", PrecisionUtils.addColon(DBConstant.databaseName));
+            }
+
+            if (DBConstant.dbType.equals("oracle")) {
+                resultSet = MessageFormat.format("select table_name tableName, table_comment tableComment, engine, create_time createTime from information_schema.tables where table_schema = {0} order by create_time desc", PrecisionUtils.addColon(DBConstant.databaseName));
+            }
+
+            if (DBConstant.dbType.equals("postgresql")) {
+                resultSet = MessageFormat.format("select table_name tableName, table_comment tableComment, engine, create_time createTime from information_schema.tables where table_schema = {0} order by create_time desc", PrecisionUtils.addColon(DBConstant.databaseName));
+            }
+
+            if (DBConstant.dbType.equals("sqlserver")) {
+                resultSet = MessageFormat.format("select table_name tableName, table_comment tableComment, engine, create_time createTime from information_schema.tables where table_schema = {0} order by create_time desc", PrecisionUtils.addColon(DBConstant.databaseName));
+            }
+
+            ResultSet result = statement.executeQuery(resultSet);
+
+            while (result.next()) {
+                String key = result.getString(1);
+                String value = result.getString(2) == null?"":result.getString(2);
+                tables.put(key, value);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                    statement = null;
+                    System.gc();
+                }
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                    System.gc();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return tables;
     }
 
     /**
@@ -191,7 +252,7 @@ public class DBReadTable {
 
         ArrayList response = new ArrayList();
 
-        for (int i = columns.size() - 1; i >= 0; --i) {
+        for (int i = 0; i < columns.size(); i++) {
             columnVo = (ColumnVo) columns.get(i);
             response.add(columnVo);
         }

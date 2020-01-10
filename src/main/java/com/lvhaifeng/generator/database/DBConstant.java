@@ -16,8 +16,9 @@ public class DBConstant {
     public static String username = database.getString("username");
     public static String password = database.getString("password");
     public static String databaseName = database.getString("database_name");
-    public static String projectPath = config.getString("project_path");
-    public static String basePackage = config.getString("base_package");
+    public static String javaPath = config.getString("java_path");
+    public static String javaPackage = config.getString("java_package");
+    public static String vuePath = config.getString("vue_path");
     public static String sourceRootPackage = config.getString("source_root_package");
     public static String resourcePackage = config.getString("resource_package");
     public static String templatePath = config.getString("template_path");

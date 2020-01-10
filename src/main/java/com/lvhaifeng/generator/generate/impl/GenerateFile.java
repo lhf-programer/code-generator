@@ -27,10 +27,12 @@ public class GenerateFile {
 
     private static final String CONTROLLER = "${entityName}Controller.javai";
     private static final String ENTITY = "${entityName}.javai";
-    private static final String MAPPERXML = "${entityName}Mapper.xml";
+    private static final String MAPPERXML = "${entityName}Mapper.xmli";
     private static final String MAPPER = "${entityName}Mapper.javai";
     private static final String SERVICEIMPL = "${entityName}ServiceImpl.javai";
     private static final String SERVICE = "I${entityName}Service.javai";
+    private static final String VUE = "index.vuei";
+    private static final String JS = "${vuePackage}.jsi";
 
     public GenerateFile(String path) {
         logger.info("----templatePath-----------------" + path);
@@ -51,23 +53,24 @@ public class GenerateFile {
      * @description 生成文件
      * @author haifeng.lv
      * @param: constant 基本信息
-     * @param: path 路径
+     * @param: javaPath
+     * @param: vuePath
      * @param: map 基本信息
      * @param: isSelects 生成哪些
      * @updateTime 2019/12/13 17:37
      */
-    protected void generateFiles(String path, Map<String, Object> map, List<Boolean> isSelects) throws Exception {
-        logger.info("--------generate----projectPath--------" + path);
+    protected void generateFiles(String javaPath, String vuePath, Map<String, Object> map, List<Boolean> isSelects) throws Exception {
+        logger.info("--------generate----projectPath--------" + javaPath);
         // 获取文件列表
         List<File> files = getFiles();
 
         for(int i = 0; i < files.size(); ++i) {
             File file = files.get(i);
-            generateFiles(path, file, map, isSelects);
+            generateFiles(javaPath, vuePath, file, map, isSelects);
         }
     }
 
-    protected void generateFiles(String path, File file, Map<String, Object> map, List<Boolean> isSelects) throws Exception {
+    protected void generateFiles(String javaPath, String vuePath, File file, Map<String, Object> map, List<Boolean> isSelects) throws Exception {
         if (file == null) {
             throw new IllegalStateException("文件路径不能未空");
         } else {
@@ -90,15 +93,19 @@ public class GenerateFile {
                     continue;
                 } else if (filePath.endsWith(SERVICE) && !isSelects.get(1)) {
                     continue;
+                } else if (filePath.endsWith(VUE) && !isSelects.get(4)) {
+                    continue;
+                } else if (filePath.endsWith(JS) && !isSelects.get(5)) {
+                    continue;
                 }
 
-                generateFiles(path, file, map, (File)files.get(i));
+                generateFiles(javaPath, vuePath, file, map, (File)files.get(i));
             }
 
         }
     }
 
-    protected void generateFiles(String path, File file, Map<String, Object> map, File subFile) throws Exception {
+    protected void generateFiles(String javaPath, String vuePath, File file, Map<String, Object> map, File subFile) throws Exception {
         logger.debug("-------templateRootDir--" + file.getPath());
         logger.debug("-------srcFile--" + subFile.getPath());
         String templateFile = FileUtils.getFile(file, subFile);
@@ -109,23 +116,34 @@ public class GenerateFile {
             logger.debug("-------outputFilepath--" + generateFiles);
             String filePath;
             if (generateFiles.startsWith("java")) {
-                filePath = path + File.separator + DBConstant.sourceRootPackage.replace(".", File.separator);
+                filePath = javaPath + File.separator + DBConstant.sourceRootPackage.replace(".", File.separator);
                 generateFiles = generateFiles.substring("java".length());
                 generateFiles = filePath + generateFiles;
                 logger.debug("-------java----outputFilepath--" + generateFiles);
                 this.generateFiles(templateFile, generateFiles, map);
             } else if (generateFiles.startsWith("resource")) {
-                filePath = path + File.separator + DBConstant.resourcePackage.replace(".", File.separator);
+                filePath = javaPath + File.separator + DBConstant.resourcePackage.replace(".", File.separator);
                 generateFiles = generateFiles.substring("resource".length());
                 generateFiles = filePath + generateFiles;
                 logger.debug("-------resource---outputFilepath---" + generateFiles);
+                this.generateFiles(templateFile, generateFiles, map);
+            } else if (generateFiles.startsWith("vue")) {
+                filePath = vuePath + File.separator + "src/views/";
+                generateFiles = generateFiles.substring("vue".length());
+                generateFiles = filePath + generateFiles;
+                logger.debug("-------vue---outputFilepath---" + generateFiles);
+                this.generateFiles(templateFile, generateFiles, map);
+            } else if (generateFiles.startsWith("js")) {
+                filePath = vuePath + File.separator + "src/api/";
+                generateFiles = generateFiles.substring("js".length());
+                generateFiles = filePath + generateFiles;
+                logger.debug("-------js---outputFilepath---" + generateFiles);
                 this.generateFiles(templateFile, generateFiles, map);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
             logger.error(ex.toString());
         }
-
     }
 
     protected void generateFiles(String templateFile, String generateFiles, Map<String, Object> map) throws Exception {
@@ -141,7 +159,6 @@ public class GenerateFile {
         if (this.generateFiles(file)) {
             generateFiles(file, "#segment#");
         }
-
     }
 
     protected Template generateFiles(String str) throws IOException {
