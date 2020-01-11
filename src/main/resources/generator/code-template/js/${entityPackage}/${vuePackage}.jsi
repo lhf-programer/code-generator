@@ -1,4 +1,4 @@
-import { get, post, postWithFromDate, put, del } from '@/utils/request'
+import { get, post, put, delWithParams } from '@/utils/request'
 
 const prefix = "/api/${entityPackage}/"
 
@@ -14,14 +14,14 @@ export function change${entityName}ById(data) {
   return put(prefix + '${entityName?uncap_first}/change${entityName}ById', data)
 }
 
-export function expurgate${entityName}(data) {
-  return del(prefix + '${entityName?uncap_first}/expurgate${entityName}', data)
+export function expurgate${entityName}ById(data) {
+  return delWithParams(prefix + '${entityName?uncap_first}/expurgate${entityName}ById', data)
 }
 
 export function expurgate${entityName}Batch(data) {
-  return del(prefix + '${entityName?uncap_first}/expurgate${entityName}Batch', data)
+  return delWithParams(prefix + '${entityName?uncap_first}/expurgate${entityName}Batch', data)
 }
 
 export function get${entityName}ById(data) {
-  return get(prefix + '${entityName?uncap_first}/get${entityName}ById?id=' + data, null)
+  return get(prefix + '${entityName?uncap_first}/get${entityName}ById', data)
 }

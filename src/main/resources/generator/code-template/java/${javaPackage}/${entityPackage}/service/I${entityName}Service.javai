@@ -1,12 +1,11 @@
 package ${javaPackage}.${entityPackage}.service;
 
 import ${javaPackage}.${entityPackage}.entity.${entityName};
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  * @Description: ${tableVo.ftlDescription}
@@ -17,7 +16,7 @@ public interface I${entityName}Service extends IService<${entityName}> {
     IPage<${entityName}> find${entityName}PageList(${entityName} ${entityName?uncap_first}, Integer pageNo, Integer pageSize, HttpServletRequest req);
     boolean create${entityName}(${entityName} ${entityName?uncap_first});
     boolean alter${entityName}ById(${entityName} ${entityName?uncap_first});
-    boolean drop${entityName}(Serializable id);
-    boolean drop${entityName}Batch(Collection<? extends Serializable> ids);
+    boolean drop${entityName}ById(Serializable id);
+    boolean drop${entityName}Batch(String ids);
     ${entityName} find${entityName}ById(Serializable id);
 }

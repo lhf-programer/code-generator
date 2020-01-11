@@ -37,10 +37,15 @@
 </#list>
         <el-button class="filter-item" type="primary" v-waves icon="search" @click="handleFilter">搜索</el-button>
         <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="edit">添加</el-button>
+        <el-button class="filter-item" style="margin-left: 10px;" @click="handleDeleteBatch" type="primary" icon="delete">删除</el-button>
     </div>
 
     <!-- table区域-begin -->
-    <el-table :key='tableKey' :data="list" v-loading.body="listLoading" border fit highlight-current-row style="width: 100%">
+    <el-table :key='tableKey' :data="list" v-loading.body="listLoading" @selection-change="handleSelectionChange" border fit highlight-current-row style="width: 100%">
+      <el-table-column
+          type="selection"
+          width="55">
+        </el-table-column>
       <el-table-column
           label="序号"
           sortable
@@ -61,17 +66,50 @@
           </el-button>
         </template> </el-table-column>
     </el-table>
-    <!-- table区域-end -->
 
+    <!-- 表单区域 -->
     <div v-show="!listLoading" class="pagination-container">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.pageNo" :page-sizes="[10,20,30, 50]" :page-size="listQuery.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
     </div>
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :model="form" :rules="rules" ref="form" label-width="100px">
 <#list columns as po>
+<#if po.fieldType =='date'>
+        <el-form-item label="${po.filedComment}" prop="${po.fieldName}">
+          <el-date-picker
+            v-model="form.${po.fieldName}"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="选择日期">
+          </el-date-picker>
+        </el-form-item>
+<#elseif po.fieldType =='time'>
+        <el-form-item label="${po.filedComment}" prop="${po.fieldName}">
+          <el-time-select
+            v-model="form.${po.fieldName}"
+            :picker-options="{
+            start: '00:00',
+            step: '00:15',
+            end: '24:00'
+            }"
+            value-format="HH:mm:ss"
+            placeholder="选择时间">
+          </el-time-select>
+        </el-form-item>
+<#elseif po.fieldType =='datetime'>
+        <el-form-item label="${po.filedComment}" prop="${po.fieldName}">
+          <el-date-picker
+            v-model="form.${po.fieldName}"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择日期时间">
+          </el-date-picker>
+        </el-form-item>
+<#else>
         <el-form-item label="${po.filedComment}" prop="${po.fieldName}">
           <el-input v-model="form.${po.fieldName}" placeholder="请输入${po.filedComment}"></el-input>
         </el-form-item>
+</#if>
 </#list>
       </el-form>
       <div scope="footer" class="dialog-footer">
@@ -88,7 +126,7 @@
     get${entityName}PageList,
     generate${entityName},
     change${entityName}ById,
-    expurgate${entityName},
+    expurgate${entityName}ById,
     expurgate${entityName}Batch,
     get${entityName}ById
   } from 'api/${entityPackage}/${vuePackage}';
@@ -103,13 +141,41 @@
 </#list>
         },
         rules: {
+<#list columns as po>
+    <#if po.fieldName !='id' && po.nullable !='Y'>
+        <#if po.fieldType =='date' || po.fieldType =='time' || po.fieldType =='datetime'>
+          ${po.fieldName}: [
+            {
+              required: true,
+              message: '请选择${po.filedComment}',
+              trigger: 'blur'
+            }
+          ],
+        <#else>
+          ${po.fieldName}: [
+            {
+              required: true,
+              message: '请输入${po.filedComment}',
+              trigger: 'blur'
+            },
+            {
+              min: 3,
+              max: 20,
+              message: '长度在 3 到 20 个字符',
+              trigger: 'blur'
+            }
+          ],
+        </#if>
+    </#if>
+</#list>
         },
-        list: null,
-        total: null,
+        list: undefined,
+        total: undefined,
+        selections: undefined,
         listLoading: true,
         listQuery: {
-            pageNo: 1,
-            pageSize: 10
+          pageNo: 1,
+          pageSize: 10
         },
         dialogFormVisible: false,
         dialogStatus: '',
@@ -141,7 +207,7 @@
         this.dialogFormVisible = true;
       },
       handleUpdate(row) {
-        get${entityName}ById(row.id)
+        get${entityName}ById({id: row.id})
           .then(response => {
             this.form = response.result;
             this.dialogFormVisible = true;
@@ -155,7 +221,7 @@
           type: 'warning'
         })
           .then(() => {
-            expurgate${entityName}(row.id)
+            expurgate${entityName}ById({id: row.id})
               .then(() => {
                 this.$notify({
                   title: '成功',
@@ -168,6 +234,42 @@
               });
           });
       },
+      handleSelectionChange(val) {
+        this.selections = val;
+      },
+      handleDeleteBatch() {
+        if (this.selections == undefined || this.selections.length == 0) {
+          this.$notify({
+            title: '批量删除',
+            message: '请选择列',
+            type: 'warning',
+            duration: 2000
+          });
+          return
+        }
+        var ids = '';
+        this.selections.forEach((item, index, array) => {
+          ids += item.id + ",";
+        });
+        ids = ids.substring(0, ids.length -1);
+        this.$confirm('此操作将永久删除选择列, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            expurgateRoleBatch({ids: ids})
+              .then(() => {
+                this.$notify({
+                  title: '成功',
+                  message: '删除成功',
+                  type: 'success',
+                  duration: 2000
+                });
+                this.getList();
+            });
+        });
+      },
       handleSizeChange(val) {
         this.listQuery.limit = val;
         this.getList();
@@ -179,6 +281,26 @@
       cancel(formName) {
         this.dialogFormVisible = false;
         this.$refs[formName].resetFields();
+      },
+      create(formName) {
+        const set = this.$refs;
+        set[formName].validate(valid => {
+          if (valid) {
+            generate${entityName}(this.form)
+              .then(() => {
+                this.dialogFormVisible = false;
+                  this.getList();
+                  this.$notify({
+                  title: '成功',
+                  message: '创建成功',
+                  type: 'success',
+                  duration: 2000
+                });
+              })
+          } else {
+            return false;
+          }
+        });
       },
       update(formName) {
         const set = this.$refs;
