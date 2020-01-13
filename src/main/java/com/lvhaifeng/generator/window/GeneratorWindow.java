@@ -214,7 +214,7 @@ public class GeneratorWindow extends JFrame {
     }
 
     // 是否生成 java
-    private static final boolean ISJAVA = false;
+    private static final boolean ISJAVA = true;
     // 是否生成 vue
     private static final boolean ISVUE = true;
 
