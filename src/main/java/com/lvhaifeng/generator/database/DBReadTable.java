@@ -154,7 +154,7 @@ public class DBReadTable {
             connection = DriverManager.getConnection(DBConstant.url, DBConstant.username, DBConstant.password);
             statement = connection.createStatement(1005, 1007);
             if (DBConstant.dbType.equals("mysql")) {
-                sql = MessageFormat.format("select column_name,data_type,column_comment,numeric_precision,numeric_scale,character_maximum_length,is_nullable nullable from information_schema.columns where table_name = {0} and table_schema = {1}", PrecisionUtils.addColon(str), PrecisionUtils.addColon(DBConstant.databaseName));
+                sql = MessageFormat.format("select column_name,data_type,column_comment,numeric_precision,numeric_scale,character_maximum_length,is_nullable nullable from information_schema.columns where table_name = {0} and table_schema = {1} order by ORDINAL_POSITION", PrecisionUtils.addColon(str), PrecisionUtils.addColon(DBConstant.databaseName));
             }
 
             if (DBConstant.dbType.equals("oracle")) {
@@ -252,7 +252,7 @@ public class DBReadTable {
 
         ArrayList response = new ArrayList();
 
-        for (int i = 0; i < columns.size(); i++) {
+        for (int i = columns.size() - 1; i >= 0; --i) {
             columnVo = (ColumnVo) columns.get(i);
             response.add(columnVo);
         }
