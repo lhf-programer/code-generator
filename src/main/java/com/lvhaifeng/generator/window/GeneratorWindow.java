@@ -213,9 +213,13 @@ public class GeneratorWindow extends JFrame {
         this.setLocationRelativeTo(this.getOwner());
     }
 
-    // 是否生成 java
+    /**
+     * 是否生成 java
+     */
     private static final boolean ISJAVA = true;
-    // 是否生成 vue
+    /**
+     * 是否生成 vue
+     */
     private static final boolean ISVUE = true;
 
     /**
