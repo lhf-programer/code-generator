@@ -237,6 +237,11 @@
       handleUpdate(row) {
         get${entityName}ById({id: row.id})
           .then(response => {
+            this.form = {
+<#list columns as po>
+              ${po.fieldName}: response.result.${po.fieldName},
+</#list>
+            };
             this.form = response.result;
             this.dialogFormVisible = true;
             this.dialogStatus = 'update';
