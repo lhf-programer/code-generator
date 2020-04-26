@@ -1,8 +1,10 @@
 package ${javaPackage}.${entityPackage}.service;
 
 import ${javaPackage}.${entityPackage}.entity.${entityName};
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+<#if tableVo.isEmpty ==0>
+import com.baomidou.mybatisplus.core.metadata.IPage;
+</#if>
 
 /**
  * @Description: ${tableVo.ftlDescription}

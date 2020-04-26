@@ -1,15 +1,17 @@
 package ${javaPackage}.${entityPackage}.controller;
 
-import com.lvhaifeng.cloud.common.vo.Result;
-import ${javaPackage}.${entityPackage}.entity.${entityName};
 import ${javaPackage}.${entityPackage}.service.I${entityName}Service;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
+<#if tableVo.isEmpty ==0>
 import io.swagger.annotations.ApiOperation;
+import com.lvhaifeng.cloud.common.vo.Result;
+import ${javaPackage}.${entityPackage}.entity.${entityName};
+import com.baomidou.mybatisplus.core.metadata.IPage;
+</#if>
 
 <#if tableVo.isCheckClient ==1>
 import com.lvhaifeng.cloud.auth.client.annotation.CheckClientToken;
