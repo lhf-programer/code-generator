@@ -40,7 +40,7 @@ import com.lvhaifeng.cloud.auth.user.annotation.CheckUserToken;
 public class ${entityName}Controller {
 	@Autowired
 	private I${entityName}Service ${entityName?uncap_first}Service;
-	
+<#if tableVo.isEmpty ==0>
 	/**
 	 * 分页列表查询
 	 * @param ${entityName?uncap_first}
@@ -130,5 +130,5 @@ public class ${entityName}Controller {
         result.setSuccess(true);
 		return result;
 	}
-
+</#if>
 }

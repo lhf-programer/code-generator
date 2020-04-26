@@ -21,6 +21,18 @@ public class TableVo {
      * 是否检查用户端
      */
     private Integer isCheckUser;
+    /**
+     * 是否使用空模板
+     */
+    private Integer isEmpty;
+
+    public Integer getIsEmpty() {
+        return isEmpty;
+    }
+
+    public void setIsEmpty(Integer isEmpty) {
+        this.isEmpty = isEmpty;
+    }
 
     public Integer getIsCheckClient() {
         return isCheckClient;

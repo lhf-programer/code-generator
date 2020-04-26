@@ -26,6 +26,7 @@ import java.util.Arrays;
  */
 @Service
 public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, ${entityName}> implements I${entityName}Service {
+<#if tableVo.isEmpty ==0>
     @Override
     @Transactional(rollbackFor = Exception.class)
     public IPage<${entityName}> find${entityName}PageList(${entityName} ${entityName?uncap_first}, Integer pageNo, Integer pageSize, String sortProp, String sortType) {
@@ -80,4 +81,5 @@ public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, $
             return ${entityName?uncap_first};
         }
     }
+</#if>
 }

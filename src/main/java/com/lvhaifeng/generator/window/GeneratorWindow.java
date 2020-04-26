@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @description 代码生成器
  * @author haifeng.lv
+ * @description 代码生成器
  * @updateTime 2019/12/13 15:41
  */
 public class GeneratorWindow extends JFrame {
@@ -61,7 +61,7 @@ public class GeneratorWindow extends JFrame {
 
         JLabel entityClassLabel = new JLabel("实体类名（首字母大写）：");
         final JTextField entityClassField = new JTextField(20);
-        entityClassField.setText(firstItem.substring(0,1).toUpperCase() + firstItem.substring(1));
+        entityClassField.setText(firstItem.substring(0, 1).toUpperCase() + firstItem.substring(1));
 
         JLabel descriptionLabel = new JLabel("功能描述：");
         final JTextField descriptionField = new JTextField();
@@ -69,7 +69,8 @@ public class GeneratorWindow extends JFrame {
 
         final JCheckBox javaMode = new JCheckBox("java");
         javaMode.setSelected(isJava);
-        JLabel javaLabel = new JLabel();
+        final JCheckBox isEmpty = new JCheckBox("is_empty");
+        isEmpty.setSelected(false);
 
         final JCheckBox controller = new JCheckBox("controller");
         controller.setSelected(isJava);
@@ -103,7 +104,7 @@ public class GeneratorWindow extends JFrame {
         jPanel.add(descriptionLabel);
         jPanel.add(descriptionField);
         jPanel.add(javaMode);
-        jPanel.add(javaLabel);
+        jPanel.add(isEmpty);
         jPanel.add(controller);
         jPanel.add(service);
         jPanel.add(mapper);
@@ -123,7 +124,7 @@ public class GeneratorWindow extends JFrame {
             StringBuilder entityClassName = new StringBuilder();
 
             for (int i = 0; i < tableNames.length; i++) {
-                entityClassName.append(tableNames[i].substring(0,1).toUpperCase() + tableNames[i].substring(1));
+                entityClassName.append(tableNames[i].substring(0, 1).toUpperCase() + tableNames[i].substring(1));
             }
 
             entityClassField.setText(entityClassName.toString());
@@ -170,8 +171,9 @@ public class GeneratorWindow extends JFrame {
                         tableVo.setEntityName(entityClass);
                         tableVo.setFieldRowNum(1);
                         tableVo.setFtlDescription(description);
-                        tableVo.setIsCheckClient(isCheckClient.isSelected()?1:0);
-                        tableVo.setIsCheckUser(isCheckUser.isSelected()?1:0);
+                        tableVo.setIsCheckClient(isCheckClient.isSelected() ? 1 : 0);
+                        tableVo.setIsCheckUser(isCheckUser.isSelected() ? 1 : 0);
+                        tableVo.setIsEmpty(isEmpty.isSelected() ? 1 : 0);
 
                         List<Boolean> isSelects = new ArrayList();
                         isSelects.add(controller.isSelected());
