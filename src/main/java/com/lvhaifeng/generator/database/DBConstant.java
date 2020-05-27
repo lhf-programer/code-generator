@@ -19,6 +19,7 @@ public class DBConstant {
     public static String javaPath = config.getString("java_path");
     public static String javaPackage = config.getString("java_package");
     public static String vuePath = config.getString("vue_path");
+    public static String module = config.getString("module");
     public static String sourceRootPackage = config.getString("source_root_package");
     public static String resourcePackage = config.getString("resource_package");
     public static String templatePath = config.getString("template_path");

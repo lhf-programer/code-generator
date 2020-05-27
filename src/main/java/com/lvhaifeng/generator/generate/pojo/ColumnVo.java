@@ -5,6 +5,7 @@ public class ColumnVo extends CgFormColumnExtendVo {
     public static final String OPTION_NUMBER_INSEX = "precision:2,groupSeparator:','";
     private String fieldDbName;
     private String fieldName;
+    private String fieldColumn;
     private String filedComment = "";
     private String fieldType = "";
     private String fieldDbType = "";
@@ -17,6 +18,14 @@ public class ColumnVo extends CgFormColumnExtendVo {
     private String optionType = "";
 
     public ColumnVo() {
+    }
+
+    public String getFieldColumn() {
+        return fieldColumn;
+    }
+
+    public void setFieldColumn(String fieldColumn) {
+        this.fieldColumn = fieldColumn;
     }
 
     public String getFieldDbType() {

@@ -1,5 +1,6 @@
 package com.lvhaifeng.generator.window;
 
+import com.lvhaifeng.generator.database.DBConstant;
 import com.lvhaifeng.generator.database.DBReadTable;
 import com.lvhaifeng.generator.generate.impl.CodeGenerator;
 import com.lvhaifeng.generator.generate.pojo.TableVo;
@@ -45,6 +46,7 @@ public class GeneratorWindow extends JFrame {
 
         JLabel basePackageLabel = new JLabel("包名（小写）：");
         final JTextField basePackageField = new JTextField();
+        basePackageField.setText(DBConstant.module);
 
         // 查询所有数据库表
         Map<String, String> tables = DBReadTable.readTableNameList();

@@ -186,6 +186,7 @@ public class DBReadTable {
             columnVo.setFieldDbName(resultSet.getString(1));
             columnVo.setFieldType(resolverStr(resultSet.getString(2).toLowerCase()));
             columnVo.setFieldDbType(resolverStr(resultSet.getString(2).toLowerCase()));
+            columnVo.setFieldColumn(columnVo.getFieldDbName().toUpperCase());
             columnVo.setPrecision(resultSet.getString(4));
             columnVo.setScale(resultSet.getString(5));
             columnVo.setCharmaxLength(resultSet.getString(6));
@@ -215,6 +216,7 @@ public class DBReadTable {
                 if (!DBConstant.dbTableId.equals(column.getFieldName()) && !FiledUtils.equal(column.getFieldDbName().toLowerCase(), baseFiled)) {
                     column.setFieldType(resolverStr(resultSet.getString(2).toLowerCase()));
                     column.setFieldDbType(resolverStr(resultSet.getString(2).toLowerCase()));
+                    column.setFieldColumn(column.getFieldDbName().toUpperCase());
                     logger.debug("-----po.setFieldType------------" + column.getFieldType());
                     column.setPrecision(resultSet.getString(4));
                     column.setScale(resultSet.getString(5));
@@ -301,6 +303,7 @@ public class DBReadTable {
             }
 
             columnVo.setFieldDbName(resultSet.getString(1));
+            columnVo.setFieldColumn(columnVo.getFieldDbName().toUpperCase());
             columnVo.setPrecision(PrecisionUtils.isBlank(resultSet.getString(4)));
             columnVo.setScale(PrecisionUtils.isBlank(resultSet.getString(5)));
             columnVo.setCharmaxLength(PrecisionUtils.isBlank(resultSet.getString(6)));
@@ -326,6 +329,7 @@ public class DBReadTable {
                 }
 
                 column.setFieldDbName(resultSet.getString(1));
+                column.setFieldColumn(column.getFieldDbName().toUpperCase());
                 column.setPrecision(PrecisionUtils.isBlank(resultSet.getString(4)));
                 column.setScale(PrecisionUtils.isBlank(resultSet.getString(5)));
                 column.setCharmaxLength(PrecisionUtils.isBlank(resultSet.getString(6)));
